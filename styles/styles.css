@@ -13,6 +13,11 @@ body {
     color: #555;
 }
 
+a,
+a:hover {
+    color: #b34848;
+}
+
 
 
 h1,
