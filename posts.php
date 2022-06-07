@@ -1,7 +1,9 @@
 <?php include_once('db.php');
 ?>
 <?php
-$sql = "SELECT Id, title, body, author, created_at FROM posts  ORDER BY created_at DESC";
+$sql = "SELECT p.Id, p.title, p.body, a.ime,a.prezime, p.created_at FROM posts as p 
+INNER JOIN author as a ON p.author_id = a.Id   ORDER BY p.created_at DESC";
+
 $posts = fetch($sql, $connection, true);
 ?>
 <!doctype html>
@@ -43,7 +45,8 @@ $posts = fetch($sql, $connection, true);
                             <?php echo ($post['title']) ?>
                         </a></h2>
                     <p class="blog-post-meta"><?php echo ($post['created_at']) ?> by <a href="#">
-                            <?php echo ($post['author']) ?></a></p>
+                            <?php echo ($post['ime'] . ' ' . $post['prezime'])
+                                ?></a></p>
 
                     <p><?php echo ($post['body']) ?></p>
                     tetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p>

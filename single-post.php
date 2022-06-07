@@ -25,15 +25,16 @@
     <main role="main" class="container">
 
         <?php
-        if (isset($_GET['post_id'])) {
-            $sql = "SELECT Id, title, body, author, created_at 
-            FROM posts  
-            WHERE Id = {$_GET['post_id']}";
+        $postId = $_GET['post_id'];
+        if (isset($postId)) {
+            $sql = "SELECT p.Id, p.title, p.body, a.ime, a.prezime, p.created_at 
+            FROM posts p INNER JOIN author as a ON p.author_id = a.Id 
+            WHERE p.Id = {$_GET['post_id']}";
             $SinglePost = fetch($sql, $connection);
 
-            $sql_comments = "SELECT c.author, c.text, p.Id 
+            $sql_comments = "SELECT c.text, p.Id, a.ime, a.prezime
             FROM comments AS c INNER JOIN posts as p
-            ON c.posts_id = p.Id
+            ON c.posts_id = p.Id INNER JOIN author as a ON c.author_id = a.Id
             WHERE c.posts_id = {$_GET['post_id']}";
             $comments = fetch($sql_comments, $connection, true);
             // echo '<pre>';
@@ -48,45 +49,36 @@
                 <div class="blog-post">
                     <h2 class="blog-post-title"><a href="#"><?php echo ($SinglePost['title']) ?><a></h2>
                     <p class="blog-post-meta"><?php echo ($SinglePost['created_at']) ?> by <a
-                            href="#"><?php echo ($SinglePost['author']) ?></a></p>
+                            href="#"><?php echo ($SinglePost['ime'] . ' ' . $SinglePost['prezime']) ?></a></p>
 
                     <p><?php echo ($SinglePost['body']) ?></p>
                     <hr>
 
+
+                    <h3>Comments</h3>
+                    <?php foreach ($comments as $comment) { ?>
                     <ul>
-                        <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-                        <li>Donec id elit non mi porta gravida at eget metus.</li>
-                        <li>Nulla vitae elit libero, a pharetra augue.</li>
+                        <li>Posted by <strong><?php echo $comment['ime'] . ' ' . $comment['prezime'] ?> </strong>
+                            <?php echo $comment['text'] ?>
+                        </li>
+                        <hr>
+
                     </ul>
-                    <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.
-                    </p>
-                    <ol>
-                        <li>Vestibulum id ligula porta felis euismod semper.</li>
-                        <li>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</li>
-                        <li>Maecenas sed diam eget risus varius blandit sit amet non magna.</li>
-                    </ol>
-                    <p>Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p>
-                </div><!-- /.blog-post -->
-                <hr>
-                <h3>Comments</h3>
-                <?php foreach ($comments as $comment) { ?>
-                <ul>
-                    <li>Posted by <strong><?php echo $comment['author'] ?> </strong> : <?php echo $comment['text'] ?>
-                    </li>
-                    <hr>
 
-                </ul>
+                    <?php } ?>
+                    <nav class="blog-pagination">
+                        <a class="btn btn-outline-primary" href="#">Older</a>
+                        <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
+                    </nav>
 
-                <?php } ?>
-                <nav class="blog-pagination">
-                    <a class="btn btn-outline-primary" href="#">Older</a>
-                    <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
-                </nav>
+                    <?php } ?>
 
-                <?php } ?>
+                </div><!-- /.blog-main -->
 
-            </div><!-- /.blog-main -->
-            <?php include('sidebar.php') ?>
+                <?php include('sidebar.php') ?>
+
+            </div><!-- /.row -->
+
     </main><!-- /.container -->
 
     <?php include('footer.php') ?>
