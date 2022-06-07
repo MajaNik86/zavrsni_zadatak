@@ -39,7 +39,7 @@ $posts = fetch($sql, $connection, true);
                 ?>
 
                 <div class="blog-post">
-                    <h2 class="blog-post-title"><a href="#">
+                    <h2 class="blog-post-title"><a href="single-post.php?post_id=<?php echo ($post['Id']) ?>">
                             <?php echo ($post['title']) ?>
                         </a></h2>
                     <p class="blog-post-meta"><?php echo ($post['created_at']) ?> by <a href="#">
