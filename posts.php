@@ -51,7 +51,7 @@ $posts = fetch($sql, $connection, true);
                                 ?></a></p>
 
                     <p><?php echo ($post['body']) ?></p>
-                    tetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p>
+
                 </div><!-- /.blog-post -->
 
                 <?php

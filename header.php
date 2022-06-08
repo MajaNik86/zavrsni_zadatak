@@ -7,6 +7,7 @@
                 <a class="nav-link" href="#">Press</a>
                 <a class="nav-link" href="#">New hires</a>
                 <a class="nav-link" href="#">About</a>
+                <button id="create-post" class="btn btn-primary">Create post</button>
             </nav>
         </div>
     </div>
@@ -18,3 +19,8 @@
         </div>
     </div>
 </header>
+<script type="text/javascript">
+document.getElementById("create-post").onclick = function() {
+    location.href = "create-post.php";
+};
+</script>
