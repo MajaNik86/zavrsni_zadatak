@@ -56,12 +56,13 @@ if (isset($_POST['submit'])) {
                                 <input type="text" id="title" name="title" placeholder="Enter title" required>
                             </li>
                             <li>
-                                <label for="author">Ime</label>
-                                <input type="text" id="ime" name="ime" placeholder="Enter your name" required>
+                                <label for="author">First name</label>
+                                <input type="text" id="ime" name="ime" placeholder="Enter your first name" required>
                             </li>
                             <li>
-                                <label for="author">Prezime</label>
-                                <input type="text" id="prezime" name="prezime" placeholder="Enter your name" required>
+                                <label for="author">Last name</label>
+                                <input type="text" id="prezime" name="prezime" placeholder="Enter your last name"
+                                    required>
                             </li>
 
                             <li>
