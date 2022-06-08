@@ -1,10 +1,12 @@
 <?php include_once('db.php');
 ?>
 <?php
-$sql = "SELECT p.Id, p.title, p.body, a.ime,a.prezime, p.created_at FROM posts as p 
+$sql = "SELECT p.Id, p.title, p.body, a.ime, a.prezime, p.created_at FROM posts as p 
 INNER JOIN author as a ON p.author_id = a.Id   ORDER BY p.created_at DESC";
 
 $posts = fetch($sql, $connection, true);
+
+
 ?>
 <!doctype html>
 <html lang="en">

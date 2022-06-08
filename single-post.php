@@ -34,8 +34,8 @@
 
             $sql_comments = "SELECT c.text, p.Id, a.ime, a.prezime
             FROM comments AS c INNER JOIN posts as p
-            ON c.posts_id = p.Id INNER JOIN author as a ON c.author_id = a.Id
-            WHERE c.posts_id = {$_GET['post_id']}";
+            ON c.post_id = p.Id INNER JOIN author as a ON c.author_id = a.Id
+            WHERE c.post_id = {$_GET['post_id']}";
             $comments = fetch($sql_comments, $connection, true);
             // echo '<pre>';
             // var_dump($comments);

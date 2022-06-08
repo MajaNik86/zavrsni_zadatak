@@ -1,21 +1,28 @@
 <?php include('db.php');
 
+
+$sql_author_list = "SELECT id, ime, prezime FROM author";
+$authors = fetch($sql_author_list, $connection, true);
+
+
 if (isset($_POST['submit'])) {
     $title = $_POST['title'];
-
     $body = $_POST['body'];
-    $ime = $_POST['ime'];
-    $prezime = $_POST['prezime'];
+    $author = $_POST['author'];
 
-    if (empty($title) || empty($ime) || empty($prezime) || empty($body)) {
+
+
+
+    if (empty($title) || empty($body) || empty($author)) {
         echo 'All fields must be filled';
     } else {
         $currentDate = date("Y-m-d h:i");
         $sql = "INSERT INTO posts (
-            title, author_id, body, created_at, Id)
-            VALUES ('$title', (SELECT ID from Author WHERE ime='$ime' and prezime='$prezime'), '$body', '$currentDate', 20)";
+            title, author_id, body, created_at)
+            VALUES ('$title','$author', '$body', '$currentDate')";
         $statement = $connection->prepare($sql);
         $statement->execute();
+
         header("Location: ./posts.php");
         echo ("Upisi u bazu");
     }
@@ -56,15 +63,21 @@ if (isset($_POST['submit'])) {
                                 <input type="text" id="title" name="title" placeholder="Enter title" required>
                             </li>
                             <li>
-                                <label for="author">First name</label>
-                                <input type="text" id="ime" name="ime" placeholder="Enter your first name" required>
-                            </li>
-                            <li>
-                                <label for="author">Last name</label>
-                                <input type="text" id="prezime" name="prezime" placeholder="Enter your last name"
-                                    required>
-                            </li>
 
+                                <label for="author">Select author:</label>
+                                <select name="author" id="author">
+                                    <?php
+                                    foreach ($authors as $author) {
+                                    ?>
+                                    <option value="<?php echo ($author['id']) ?>">
+                                        <?php echo ($author['ime'] . ' ' . $author['prezime']) ?>
+                                    </option>
+
+                                    <?php }
+                                    ?>
+                                </select>
+
+                            </li>
                             <li>
                                 <label for="body">Body</label>
                                 <textarea name="body" placeholder="Enter text" rows="10" id="bodyPosts"
